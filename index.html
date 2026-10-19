@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#15262E">
-<title>牙周經典文獻複習手冊</title>
+<title>牙周經典文獻複習手冊｜三軍總醫院牙周病科</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@700&display=swap">
@@ -130,6 +130,9 @@ details.more summary{cursor:pointer;color:var(--teal);font-size:.88rem;padding:6
 .pn a{flex:1;text-decoration:none;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 12px;color:var(--ink);font-size:.85rem;min-width:0}
 .pn a small{display:block;color:var(--muted)}
 .pn a.nx{text-align:right}
+.sitefoot{margin-top:32px;padding-top:20px;border-top:1px solid var(--line);text-align:center;color:var(--muted);font-size:.78rem;line-height:1.7;display:grid;gap:8px}
+.sitefoot .who{color:var(--ink);font-size:.95rem;font-weight:700;letter-spacing:.04em}
+.sitefoot p{margin:0;text-wrap:pretty}
 .note{font-size:.78rem;color:var(--muted);margin-top:24px;text-align:center}
 .report{margin-top:28px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;display:grid;gap:8px}
 .report h2{font-size:.95rem}
@@ -194,13 +197,21 @@ details.more summary{cursor:pointer;color:var(--teal);font-size:.88rem;padding:6
     try{navigator.clipboard.writeText(t).then(ok,function(){sel(b)})}catch(err){sel(b)}
     function sel(b){var m=b.parentNode.querySelector('.mail');var r=document.createRange();r.selectNodeContents(m);var w=window.getSelection();w.removeAllRanges();w.addRange(r);b.textContent='已選取，請手動複製'}
   });
+  function foot(){
+    var y=new Date().getFullYear();
+    return '<footer class="sitefoot"><div class="who">三軍總醫院 牙周病科　陳穎吾</div>'+
+      '<p>© '+(y>2026?'2026–'+y:'2026')+' 三軍總醫院牙周病科　陳穎吾</p>'+
+      '<p>本手冊採 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh-hant" target="_blank" rel="license noopener">CC BY-NC-ND 4.0</a> 授權：歡迎標示出處後原樣分享於學術與教學用途，不得商業使用或改作。</p>'+
+      '<p>所引用文獻之內容、圖表與數據，著作權屬原作者及出版者所有，本手冊僅摘要並註明出處；數據與結論請以原文為準。</p>'+
+      '<p>本手冊為教學用途，不構成個別病人之診療建議。</p></footer>';
+  }
   function home(){
     var n=D.sessions.length, c=Object.keys(done).length;
-    var h='<header class="hero"><div class="in"><span class="eyebrow">牙周病科 住院醫師課程</span><h1>牙周經典文獻複習手冊</h1>'+
+    var h='<header class="hero"><div class="in"><span class="eyebrow">三軍總醫院 牙周病科 住院醫師課程</span><h1>牙周經典文獻複習手冊</h1>'+
       '<p>18 模組 · 52 堂｜經典 → 新證據 → 回扣經典 → 臨床</p>'+
       '<div class="prog"><div class="bar"><i style="width:'+(c/n*100).toFixed(1)+'%"></i></div><span>已複習 '+c+' / '+n+'</span></div></div></header>'+
       '<div class="wrap"><div class="search"><input id="q" type="search" placeholder="搜尋主題、作者、關鍵字（例如 stippling、Lang）" value="'+esc(query)+'" autocomplete="off"></div><div id="list"></div>'+
-      report(0)+'<p class="note">內容整理自課程大綱與內文，僅供課程成員複習；數據與結論請以原文為準。</p></div>';
+      report(0)+foot()+'</div>';
     app.innerHTML=h;
     var q=document.getElementById('q');
     q.addEventListener('input',function(){query=q.value;renderList()});
@@ -277,7 +288,7 @@ details.more summary{cursor:pointer;color:var(--teal);font-size:.88rem;padding:6
     h+='<div class="foot"><button class="mark'+(done[n]?' on':'')+'" id="mark">'+(done[n]?'✓ 已複習（點一下取消）':'標記為已複習')+'</button><div class="pn">'+
       (pv?'<a href="#s'+pad(pv.n)+'"><small>‹ 上一堂</small>S'+pad(pv.n)+' '+esc(pv.topic)+'</a>':'<span style="flex:1"></span>')+
       (nx?'<a class="nx" href="#s'+pad(nx.n)+'"><small>下一堂 ›</small>S'+pad(nx.n)+' '+esc(nx.topic)+'</a>':'<span style="flex:1"></span>')+'</div></div>';
-    h+=report(n)+'<p class="note">內容整理自課程大綱與內文，僅供課程成員複習；數據與結論請以原文為準。</p></div>';
+    h+=report(n)+foot()+'</div>';
     app.innerHTML=h; window.scrollTo(0,0);
     document.getElementById('mark').addEventListener('click',function(){if(done[n])delete done[n];else done[n]=1;save(KEY,done);session(n)});
     app.querySelectorAll('.jump button').forEach(function(b){b.addEventListener('click',function(){var el=document.getElementById('b-'+b.getAttribute('data-t'));if(el)el.scrollIntoView({behavior:'smooth',block:'start'})})});
